@@ -190,28 +190,3 @@ Performance varies by MBTI type, with better results for more common types in th
   }
 }
 ```
-
-## 🚧 Future Improvements
-
-- Experiment with different pre-trained models (RoBERTa, ALBERT, etc.)
-- Implement cross-validation for more robust evaluation
-- Add explainability features to show which words influence predictions
-- Expand the dataset with more diverse text samples
-- Deploy the system to a cloud provider (AWS, GCP, Azure)
-- Add user accounts to save and track predictions over time
-- Implement batch prediction for analyzing multiple users at once
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 👏 Acknowledgements
-
-- The MBTI dataset creators and contributors
-- Hugging Face Transformers library
-- Google Colab for providing free GPU resources
-- The open-source machine learning community
-
-## 📬 Contact
-
-For questions or feedback, please open an issue on this repository or contact [your-email@example.com].
