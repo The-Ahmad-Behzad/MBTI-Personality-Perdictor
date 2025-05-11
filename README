@@ -1,0 +1,217 @@
+# MBTI Personality Type Prediction from Social Media Posts
+
+A deep learning system that predicts Myers-Briggs Type Indicator (MBTI) personality types from short text samples using BERT, Google Colab, and Flask.
+
+## 📝 Description
+
+This project implements an end-to-end NLP system that analyzes a user's writing style based on three social media posts, captions, or comments and predicts their MBTI personality type. The system uses a fine-tuned BERT model to classify text into one of the 16 MBTI personality categories (INTJ, ENTJ, INFJ, etc.).
+
+## ✨ Features
+
+- Text preprocessing pipeline for social media content
+- Fine-tuned BERT model for 16-class MBTI classification
+- Class imbalance handling with weights and oversampling
+- Regular model checkpointing to Google Drive
+- Comprehensive evaluation metrics (accuracy, F1-score, confusion matrix)
+- Interactive demo in Google Colab
+- RESTful API with Flask
+- User-friendly web interface with Streamlit
+
+## 📊 Dataset
+
+The project uses the MBTI personality dataset which includes:
+- Two columns: `type` (MBTI label) and `text` (user posts)
+- Each row represents one user with their MBTI type and text samples
+- Posts are preprocessed and limited to 3 per user for analysis
+
+## 🛠️ Tech Stack
+
+- **Google Colab**: Development environment with GPU acceleration
+- **PyTorch**: Deep learning framework
+- **Hugging Face Transformers**: BERT model implementation
+- **Flask**: API development
+- **Streamlit**: Web UI
+- **scikit-learn**: Evaluation metrics and data preprocessing
+
+## 🔧 Installation
+
+### Training Environment (Google Colab)
+
+1. Open the `MBTI_Classifier_Training.ipynb` notebook in Google Colab
+2. Enable GPU acceleration: Runtime → Change runtime type → Hardware accelerator → GPU
+3. Run the setup cell to install required packages:
+   ```python
+   !pip install transformers pandas numpy scikit-learn matplotlib seaborn torch
+   ```
+4. Connect to Google Drive:
+   ```python
+   from google.colab import drive
+   drive.mount('/content/drive')
+   ```
+5. Run rest of the given code snippets
+
+### API Deployment
+
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/The-Ahmad-Behzad/mbti-classifier.git
+   cd mbti-classifier
+   ```
+
+2. Create a virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Copy model files from Google Drive to the deployment directory:
+   - `mbti_bert_best_model.pt`
+   - `model_config.json`
+   - `tokenizer/` directory
+
+### Backend (Flask)
+5. Start the Flask server:
+   ```bash
+   python app.py
+   ```
+
+### Frontend (Streamlit)
+6. Run the Streamlit app:
+   ```bash
+   streamlit run streamlit_app.py
+   ```
+
+## 🚀 Usage
+
+
+### Making Predictions with the API
+
+The Flask API exposes a `/predict` endpoint that accepts POST requests with JSON data:
+
+```bash
+curl -X POST \
+  http://localhost:5000/predict \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "texts": [
+        "I enjoy spending time with friends and going to parties",
+        "I always make decisions based on careful analysis of facts",
+        "I prefer to have a structured plan for my week"
+    ]
+}'
+```
+
+Example response:
+
+```json
+{
+  "predicted_type": "ESTJ",
+  "probabilities": {
+    "ESTJ": 0.421,
+    "ENTJ": 0.189,
+    "ESTP": 0.092,
+    "ESFJ": 0.087,
+    "ENTP": 0.064,
+    "ESFP": 0.041,
+    "ENFJ": 0.035,
+    "ISTJ": 0.028,
+    "ENFP": 0.011,
+    "INTJ": 0.009,
+    "ISTP": 0.008,
+    "ISFJ": 0.007,
+    "INTP": 0.004,
+    "ISFP": 0.002,
+    "INFJ": 0.001,
+    "INFP": 0.001
+  }
+}
+```
+
+### Using the Streamlit UI
+
+1. Ensure the Flask API is running
+2. Open the Streamlit app in your browser (typically at http://localhost:8501)
+3. Enter up to 3 text samples
+4. Click "Predict My MBTI Type" to get results
+
+## 📁 Project Structure
+
+```
+mbti-classifier/
+├── colab/
+│   └── MBTI_Classifier_Training.ipynb    # Google Colab notebook for training
+├── models/
+│   ├── mbti_bert_best_model.pt           # Trained model weights
+│   ├── model_config.json                 # Model configuration
+│   └── tokenizer/                        # BERT tokenizer files
+├── app.py                                # Flask API
+├── streamlit_app.py                      # Streamlit UI
+├── requirements.txt                      # Dependencies
+└── README.md                             # Project documentation
+```
+
+## 📈 Model Performance
+
+The model achieves the following performance metrics on the validation set:
+- **Accuracy**: ~72% (varies with training runs)
+- **F1-Score**: ~0.71 (weighted average)
+- **Training Time**: ~30 minutes on Google Colab GPU
+
+Performance varies by MBTI type, with better results for more common types in the dataset.
+
+## 🔄 API Reference
+
+### Predict Endpoint
+
+**URL**: `/predict`
+
+**Method**: `POST`
+
+**Request Body**:
+```json
+{
+  "texts": ["text1", "text2", "text3"]
+}
+```
+
+**Response**:
+```json
+{
+  "predicted_type": "MBTI_TYPE",
+  "probabilities": {
+    "TYPE1": PROB1,
+    "TYPE2": PROB2,
+    ...
+  }
+}
+```
+
+## 🚧 Future Improvements
+
+- Experiment with different pre-trained models (RoBERTa, ALBERT, etc.)
+- Implement cross-validation for more robust evaluation
+- Add explainability features to show which words influence predictions
+- Expand the dataset with more diverse text samples
+- Deploy the system to a cloud provider (AWS, GCP, Azure)
+- Add user accounts to save and track predictions over time
+- Implement batch prediction for analyzing multiple users at once
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 👏 Acknowledgements
+
+- The MBTI dataset creators and contributors
+- Hugging Face Transformers library
+- Google Colab for providing free GPU resources
+- The open-source machine learning community
+
+## 📬 Contact
+
+For questions or feedback, please open an issue on this repository or contact [your-email@example.com].

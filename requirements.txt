@@ -1,0 +1,9 @@
+flask
+flask-cors
+torch
+transformers
+streamlit
+requests
+pandas
+matplotlib
+seaborn
