@@ -158,9 +158,9 @@ mbti-classifier/
 ## 📈 Model Performance
 
 The model achieves the following performance metrics on the validation set:
-- **Accuracy**: ~72% (varies with training runs)
-- **F1-Score**: ~0.71 (weighted average)
-- **Training Time**: ~30 minutes on Google Colab GPU
+- **Accuracy**: ~63% (varies with training runs)
+- **F1-Score**: ~0.62 (weighted average)
+- **Training Time**: ~120 minutes on Google Colab GPU
 
 Performance varies by MBTI type, with better results for more common types in the dataset.
 
